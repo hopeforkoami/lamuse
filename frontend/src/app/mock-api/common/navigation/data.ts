@@ -1,0 +1,68 @@
+/* eslint-disable */
+import { FuseNavigationItem } from '@fuse/components/navigation';
+
+export const defaultNavigation: FuseNavigationItem[] = [
+    {
+        id   : 'dashboard',
+        title: 'Dashboard',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/example'
+    },
+    {
+        id      : 'admin',
+        title   : 'Super Admin',
+        type    : 'group',
+        icon    : 'heroicons_outline:shield-check',
+        children: [
+            {
+                id   : 'admin.artists',
+                title: 'Artists',
+                type : 'basic',
+                icon : 'heroicons_outline:users',
+                link : '/admin/artists'
+            },
+            {
+                id   : 'admin.pricing',
+                title: 'Pricing Rules',
+                type : 'basic',
+                icon : 'heroicons_outline:currency-dollar',
+                link : '/admin/pricing'
+            },
+            {
+                id   : 'admin.health',
+                title: 'Payment Health',
+                type : 'basic',
+                icon : 'heroicons_outline:heart',
+                link : '/admin/payment-health'
+            }
+        ]
+    }
+];
+export const compactNavigation: FuseNavigationItem[] = [
+    {
+        id   : 'example',
+        title: 'Example',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/example'
+    }
+];
+export const futuristicNavigation: FuseNavigationItem[] = [
+    {
+        id   : 'example',
+        title: 'Example',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/example'
+    }
+];
+export const horizontalNavigation: FuseNavigationItem[] = [
+    {
+        id   : 'example',
+        title: 'Example',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/example'
+    }
+];

@@ -1,0 +1,70 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-auto">
+            <div class="text-4xl font-extrabold tracking-tight">Pricing Rules</div>
+            <div class="flex items-center mt-0.5 font-medium text-secondary">
+                Configure song pricing ranges per artist star level
+            </div>
+        </div>
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button mat-flat-button [color]="'primary'" (click)="addRule()">
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2">Add Rule</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="bg-card shadow rounded-2xl overflow-hidden">
+            <table mat-table [dataSource]="pricingRules" class="w-full">
+                <ng-container matColumnDef="star_level">
+                    <th mat-header-cell *matHeaderCellDef>Star Level</th>
+                    <td mat-cell *matCellDef="let rule">
+                        <mat-form-field class="fuse-mat-dense w-16">
+                            <input matInput type="number" [(ngModel)]="rule.star_level" min="1" max="5">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="currency_code">
+                    <th mat-header-cell *matHeaderCellDef>Currency</th>
+                    <td mat-cell *matCellDef="let rule">
+                        <mat-form-field class="fuse-mat-dense w-20">
+                            <input matInput [(ngModel)]="rule.currency_code">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="min_price">
+                    <th mat-header-cell *matHeaderCellDef>Min Price</th>
+                    <td mat-cell *matCellDef="let rule">
+                        <mat-form-field class="fuse-mat-dense w-24">
+                            <input matInput type="number" [(ngModel)]="rule.min_price">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="max_price">
+                    <th mat-header-cell *matHeaderCellDef>Max Price</th>
+                    <td mat-cell *matCellDef="let rule">
+                        <mat-form-field class="fuse-mat-dense w-24">
+                            <input matInput type="number" [(ngModel)]="rule.max_price">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let rule">
+                        <button mat-icon-button (click)="saveRule(rule)">
+                            <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>

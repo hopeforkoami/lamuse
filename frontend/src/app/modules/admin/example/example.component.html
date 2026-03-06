@@ -1,0 +1,84 @@
+<div class="flex flex-col flex-auto min-w-0" *ngIf="stats">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-auto">
+            <div class="text-4xl font-extrabold tracking-tight leading-none">Dashboard</div>
+            <div class="mt-1 text-secondary">Quick overview of your platform</div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="flex flex-col p-6 bg-card shadow rounded-2xl overflow-hidden">
+                <div class="flex items-center">
+                    <div class="flex flex-col">
+                        <div class="text-sm font-medium leading-none text-secondary uppercase tracking-wider">Total Artists</div>
+                        <div class="mt-2 text-3xl font-bold leading-none">{{stats.total_artists}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col p-6 bg-card shadow rounded-2xl overflow-hidden">
+                <div class="flex items-center">
+                    <div class="flex flex-col">
+                        <div class="text-sm font-medium leading-none text-secondary uppercase tracking-wider">Total Songs</div>
+                        <div class="mt-2 text-3xl font-bold leading-none">{{stats.total_songs}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+            <!-- Recent Artists -->
+            <div class="flex flex-col p-6 bg-card shadow rounded-2xl overflow-hidden">
+                <div class="text-lg font-bold">Recent Registered Artists</div>
+                <div class="mt-4 overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-secondary border-b">
+                                <th class="pb-2">Name</th>
+                                <th class="pb-2">Email</th>
+                                <th class="pb-2">Joined</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let artist of stats.recent_artists" class="border-b last:border-0">
+                                <td class="py-3">{{artist.name}}</td>
+                                <td class="py-3">{{artist.email}}</td>
+                                <td class="py-3 text-secondary text-sm">{{artist.created_at | date:'shortDate'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Recent Songs -->
+            <div class="flex flex-col p-6 bg-card shadow rounded-2xl overflow-hidden">
+                <div class="text-lg font-bold">Recent Songs Uploaded</div>
+                <div class="mt-4 overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-secondary border-b">
+                                <th class="pb-2">Title</th>
+                                <th class="pb-2">Artist</th>
+                                <th class="pb-2">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let song of stats.recent_songs" class="border-b last:border-0">
+                                <td class="py-3">{{song.title}}</td>
+                                <td class="py-3">{{song.artist?.name}}</td>
+                                <td class="py-3 text-secondary text-sm">{{song.created_at | date:'shortDate'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

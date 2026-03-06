@@ -1,0 +1,62 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-auto">
+            <div class="text-4xl font-extrabold tracking-tight">Payment Provider Health</div>
+            <div class="flex items-center mt-0.5 font-medium text-secondary">
+                Monitor the status of payment gateways
+            </div>
+        </div>
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button mat-flat-button [color]="'primary'" (click)="refreshHealth()">
+                <mat-icon [svgIcon]="'heroicons_outline:arrow-path'"></mat-icon>
+                <span class="ml-2">Refresh</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+            <ng-container *ngFor="let item of healthStatus">
+                <mat-card class="flex flex-col overflow-hidden shadow">
+                    <div class="flex items-center justify-between p-6 pb-0">
+                        <div class="text-2xl font-semibold leading-none">{{item.provider | uppercase}}</div>
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full"
+                             [ngClass]="{'bg-green-100 text-green-600': item.status === 'UP',
+                                        'bg-red-100 text-red-600': item.status === 'DOWN',
+                                        'bg-amber-100 text-amber-600': item.status === 'DEGRADED'}">
+                            <mat-icon class="icon-size-6 text-current"
+                                      [svgIcon]="item.status === 'UP' ? 'heroicons_outline:check-circle' : 'heroicons_outline:exclamation-circle'">
+                            </mat-icon>
+                        </div>
+                    </div>
+                    <div class="flex flex-col p-6 pt-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-secondary">Status</span>
+                            <span class="font-bold" [ngClass]="{'text-green-600': item.status === 'UP',
+                                                              'text-red-600': item.status === 'DOWN',
+                                                              'text-amber-600': item.status === 'DEGRADED'}">
+                                {{item.status}}
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-secondary">Latency</span>
+                            <span class="font-medium">{{item.latency_ms}} ms</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-secondary">Last Check</span>
+                            <span class="text-sm">{{item.last_check_at | date:'medium'}}</span>
+                        </div>
+                        <div *ngIf="item.error_message" class="mt-4 p-2 bg-red-50 text-red-600 text-xs rounded border border-red-100">
+                            {{item.error_message}}
+                        </div>
+                    </div>
+                </mat-card>
+            </ng-container>
+
+            <div *ngIf="healthStatus.length === 0" class="col-span-full flex flex-col items-center justify-center p-10 bg-card rounded-2xl shadow">
+                <mat-icon class="icon-size-16 text-hint" [svgIcon]="'heroicons_outline:shield-check'"></mat-icon>
+                <div class="mt-4 text-2xl font-semibold text-secondary">No health records found</div>
+            </div>
+        </div>
+    </div>
+</div>
