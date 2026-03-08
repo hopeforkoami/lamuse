@@ -65,6 +65,8 @@ $app->group('/admin', function (\Slim\Routing\RouteCollectorProxy $group) {
     $group->post('/pricing-rules', [\App\Controllers\AdminController::class, 'upsertPricingRule']);
     $group->get('/payment-health', [\App\Controllers\AdminController::class, 'getPaymentHealth']);
     $group->get('/dashboard-stats', [\App\Controllers\AdminController::class, 'getDashboardStats']);
+    $group->get('/songs', [\App\Controllers\AdminController::class, 'listSongs']);
+    $group->post('/songs/{id}/status', [\App\Controllers\AdminController::class, 'updateSongStatus']);
 })->add(new \App\Middleware\RoleMiddleware(['super_admin']));
 
 $app->get('/health', function ($request, $response) {

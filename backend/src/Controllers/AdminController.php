@@ -94,4 +94,25 @@ class AdminController
         $response->getBody()->write(json_encode($stats));
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    // Songs Management
+    public function listSongs(Request $request, Response $response): Response
+    {
+        $songs = Song::with('artist:id,name')->get();
+        $response->getBody()->write($songs->toJson());
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function updateSongStatus(Request $request, Response $response, $id): Response
+    {
+        $data = $request->getParsedBody();
+        $status = $data['status'];
+
+        $song = Song::findOrFail($id);
+        $song->status = $status;
+        $song->save();
+
+        $response->getBody()->write($song->toJson());
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }

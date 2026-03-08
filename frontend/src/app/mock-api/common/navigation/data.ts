@@ -7,7 +7,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         title: 'Dashboard',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/example'
+        link : '/admin/dashboard'
     },
     {
         id      : 'admin',
@@ -17,10 +17,17 @@ export const defaultNavigation: FuseNavigationItem[] = [
         children: [
             {
                 id   : 'admin.artists',
-                title: 'Artists',
+                title: 'Artists Management',
                 type : 'basic',
                 icon : 'heroicons_outline:users',
                 link : '/admin/artists'
+            },
+            {
+                id   : 'admin.songs',
+                title: 'Songs Management',
+                type : 'basic',
+                icon : 'heroicons_outline:musical-note',
+                link : '/admin/songs'
             },
             {
                 id   : 'admin.pricing',

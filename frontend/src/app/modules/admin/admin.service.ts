@@ -54,4 +54,36 @@ export class AdminService
     {
         return this._httpClient.get<any[]>('api/admin/payment-health');
     }
+
+    /**
+     * Get all songs
+     */
+    getSongs(): Observable<any[]>
+    {
+        return this._httpClient.get<any[]>('api/admin/songs');
+    }
+
+    /**
+     * Update song status (publish, draft, archive)
+     */
+    updateSongStatus(songId: number, status: string): Observable<any>
+    {
+        return this._httpClient.post(`api/admin/songs/${songId}/status`, { status });
+    }
+
+    /**
+     * Get all orders
+     */
+    getOrders(): Observable<any[]>
+    {
+        return this._httpClient.get<any[]>('api/admin/orders');
+    }
+
+    /**
+     * Get all reports
+     */
+    getReports(): Observable<any[]>
+    {
+        return this._httpClient.get<any[]>('api/admin/reports');
+    }
 }
