@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit
         if (this.profileForm.invalid) return;
 
         this._artistService.updateProfile(this.profileForm.getRawValue()).subscribe((updatedUser) => {
-            this._userService.setUser(updatedUser);
+            this._userService.user = updatedUser;
             this._snackBar.open('Profile updated successfully', 'OK', { duration: 3000 });
         });
     }
