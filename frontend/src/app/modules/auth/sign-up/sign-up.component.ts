@@ -88,8 +88,8 @@ export class AuthSignUpComponent implements OnInit
             .subscribe(
                 (response) =>
                 {
-                    // Navigate to the confirmation required page
-                    this._router.navigateByUrl('/confirmation-required');
+                    // Navigate to the home page (signed in automatically)
+                    this._router.navigateByUrl('/home');
                 },
                 (response) =>
                 {

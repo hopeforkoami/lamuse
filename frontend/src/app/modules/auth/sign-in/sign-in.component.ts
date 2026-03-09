@@ -103,6 +103,10 @@ export class AuthSignInComponent implements OnInit
                         {
                             redirectURL = '/artist'; // Assumant que cette route existera
                         }
+                        else if ( response.user.role === 'client' )
+                        {
+                            redirectURL = '/buyer/library';
+                        }
                     }
 
                     // Navigate to the redirect url

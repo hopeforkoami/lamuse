@@ -4,11 +4,22 @@ namespace App\Controllers;
 
 use App\Models\Song;
 use App\Models\User;
+use App\Services\StorageService;
+use App\Services\PdfService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 class ArtistController
 {
+    protected $storage;
+    protected $pdf;
+
+    public function __construct()
+    {
+        $this->storage = new StorageService();
+        $this->pdf = new PdfService();
+    }
+
     public function getDashboardStats(Request $request, Response $response): Response
     {
         $user = $request->getAttribute('token')['user'];
@@ -73,5 +84,20 @@ class ArtistController
 
         $response->getBody()->write(json_encode($user));
         return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function exportSalesReport(Request $request, Response $response): Response
+    {
+        $userToken = $request->getAttribute('token')['user'];
+        $artist = User::find($userToken->id);
+        $songs = Song::where('artist_id', $artist->id)->get();
+        $totalSales = 125000; // Mock
+
+        $pdfContent = $this->pdf->generateSalesReport($artist, $songs, $totalSales);
+
+        $response->getBody()->write($pdfContent);
+        return $response
+            ->withHeader('Content-Type', 'application/pdf')
+            ->withHeader('Content-Disposition', 'attachment; filename="sales_report.pdf"');
     }
 }

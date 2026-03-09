@@ -57,6 +57,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             {path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes')},
+            {path: 'checkout', loadChildren: () => import('app/modules/landing/home/home.routes').then(m => m.default.filter(r => r.path === 'checkout'))},
         ]
     },
 
@@ -73,6 +74,7 @@ export const appRoutes: Route[] = [
             {path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes')},
             {path: 'admin', loadChildren: () => import('app/modules/admin/admin.routes')},
             {path: 'artist', loadChildren: () => import('app/modules/artist/artist.routes').then(m => m.artistRoutes)},
+            {path: 'buyer', loadChildren: () => import('app/modules/buyer/buyer.routes')},
         ]
     }
 ];

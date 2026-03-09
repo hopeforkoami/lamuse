@@ -151,7 +151,7 @@ class ComposerStaticInit9fc95ed5dcf9fe727330cfa3d37a1eb3
         ),
         'Svg\\' =>
         array (
-            0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+            0 => __DIR__ . '/..' . '/dompdf/php-svg-lib/src/Svg',
         ),
         'Slim\\Psr7\\' =>
         array (
@@ -260,7 +260,7 @@ class ComposerStaticInit9fc95ed5dcf9fe727330cfa3d37a1eb3
         ),
         'FontLib\\' =>
         array (
-            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
+            0 => __DIR__ . '/..' . '/dompdf/php-font-lib/src/FontLib',
         ),
         'Firebase\\JWT\\' =>
         array (

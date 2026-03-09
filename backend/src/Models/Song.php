@@ -25,4 +25,9 @@ class Song extends Model
     {
         return $this->belongsTo(User::class, 'artist_id');
     }
+
+    public function entitlements()
+    {
+        return $this->hasMany(Entitlement::class);
+    }
 }

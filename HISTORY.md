@@ -41,3 +41,10 @@ Ce document retrace les étapes clés et les actions réalisées par Junie pour 
 - **Super Admin (Alt)** : `superadmin2@example.com` / `admin_pass_123`
 - **Artiste** : `artist_user@example.com` / `artist_pass_123`
 - **Client** : `newuser@example.com` / `password123`
+
+## 8. Nouvelles Fonctionnalités Complétées (Dernière Mise à Jour)
+- **Storefront & Checkout** : Implémentation du panier d'achat, du processus de paiement et de la navigation publique.
+- **Espace Client** : Création de la bibliothèque musicale permettant aux acheteurs de télécharger leurs morceaux acquis via des URLs signées S3.
+- **Notifications** : Service d'envoi de reçus par email après achat réussi.
+- **Rapports PDF** : Service de génération et d'exportation de rapports de ventes au format PDF pour les artistes.
+- **Intégration S3** : Gestion réelle des fichiers via AWS SDK (S3 présigné).

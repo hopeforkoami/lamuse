@@ -1,0 +1,58 @@
+<div class="flex flex-col flex-auto min-w-0 p-6 sm:p-10">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full">
+        <div>
+            <h2 class="text-3xl font-extrabold tracking-tight leading-none">Checkout</h2>
+            <div class="mt-0.5 text-secondary">Finalisez votre commande.</div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+        <!-- Cart Summary -->
+        <div class="bg-card p-6 shadow rounded-2xl">
+            <h3 class="text-xl font-bold mb-4">Votre Panier</h3>
+            <div *ngFor="let item of cartItems" class="flex items-center justify-between mb-4 pb-4 border-b">
+                <div class="flex flex-col">
+                    <span class="font-semibold">{{item.title}}</span>
+                    <span class="text-secondary text-sm">{{item.artist?.name}}</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="font-bold">{{item.price}} {{item.currency_code}}</span>
+                    <button mat-icon-button color="warn" (click)="removeFromCart(item.id)">
+                        <mat-icon [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mt-6 text-2xl font-extrabold">
+                <span>Total</span>
+                <span>{{total}} {{cartItems[0]?.currency_code}}</span>
+            </div>
+        </div>
+
+        <!-- Checkout Form -->
+        <div class="bg-card p-6 shadow rounded-2xl">
+            <form [formGroup]="checkoutForm" (ngSubmit)="processCheckout()">
+                <h3 class="text-xl font-bold mb-4">Informations de Paiement</h3>
+
+                <!-- Email (Guest only) -->
+                <mat-form-field *ngIf="!isLoggedIn" class="w-full mb-4">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="votre@email.com">
+                    <mat-error>Email valide requis pour recevoir vos liens de téléchargement.</mat-error>
+                </mat-form-field>
+
+                <div class="mb-6">
+                    <label class="font-bold block mb-2">Méthode de Paiement</label>
+                    <mat-radio-group formControlName="payment_provider" class="flex flex-col gap-2">
+                        <mat-radio-button value="paypal">PayPal</mat-radio-button>
+                        <mat-radio-button value="cinetpay">CinetPay (Orange, MTN, Moov)</mat-radio-button>
+                        <mat-radio-button value="paydunia">PayDunia</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <button mat-flat-button color="primary" class="w-full h-12 text-lg" [disabled]="cartItems.length === 0">
+                    Payer {{total}} {{cartItems[0]?.currency_code}}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
