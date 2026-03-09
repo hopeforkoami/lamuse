@@ -69,6 +69,14 @@ $app->group('/admin', function (\Slim\Routing\RouteCollectorProxy $group) {
     $group->post('/songs/{id}/status', [\App\Controllers\AdminController::class, 'updateSongStatus']);
 })->add(new \App\Middleware\RoleMiddleware(['super_admin']));
 
+// Artist Routes
+$app->group('/artist', function (\Slim\Routing\RouteCollectorProxy $group) {
+    $group->get('/dashboard-stats', [\App\Controllers\ArtistController::class, 'getDashboardStats']);
+    $group->get('/songs', [\App\Controllers\ArtistController::class, 'listSongs']);
+    $group->post('/songs', [\App\Controllers\ArtistController::class, 'uploadSong']);
+    $group->post('/profile', [\App\Controllers\ArtistController::class, 'updateProfile']);
+})->add(new \App\Middleware\RoleMiddleware(['artist']));
+
 $app->get('/health', function ($request, $response) {
     $response->getBody()->write(json_encode(['status' => 'UP']));
     return $response->withHeader('Content-Type', 'application/json');

@@ -44,6 +44,42 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 link : '/admin/payment-health'
             }
         ]
+    },
+    {
+        id      : 'artist',
+        title   : 'Artist Panel',
+        type    : 'group',
+        icon    : 'heroicons_outline:musical-note',
+        children: [
+            {
+                id   : 'artist.dashboard',
+                title: 'Dashboard',
+                type : 'basic',
+                icon : 'heroicons_outline:chart-pie',
+                link : '/artist/dashboard'
+            },
+            {
+                id   : 'artist.songs',
+                title: 'My Songs',
+                type : 'basic',
+                icon : 'heroicons_outline:musical-note',
+                link : '/artist/songs'
+            },
+            {
+                id   : 'artist.profile',
+                title: 'Profile Settings',
+                type : 'basic',
+                icon : 'heroicons_outline:cog-8-tooth',
+                link : '/artist/profile'
+            },
+            {
+                id   : 'artist.sales',
+                title: 'Sales Reports',
+                type : 'basic',
+                icon : 'heroicons_outline:presentation-chart-line',
+                link : '/artist/sales'
+            }
+        ]
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [

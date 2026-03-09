@@ -60,7 +60,7 @@ export const appRoutes: Route[] = [
         ]
     },
 
-    // Admin routes
+    // Admin and Artist routes
     {
         path: '',
         canActivate: [AuthGuard],
@@ -72,6 +72,7 @@ export const appRoutes: Route[] = [
         children: [
             {path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes')},
             {path: 'admin', loadChildren: () => import('app/modules/admin/admin.routes')},
+            {path: 'artist', loadChildren: () => import('app/modules/artist/artist.routes').then(m => m.artistRoutes)},
         ]
     }
 ];

@@ -1,0 +1,63 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500">Artist</a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon
+                        class="icon-size-3 text-secondary"
+                        [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-secondary">Profile</a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Settings
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="max-w-3xl">
+            <div class="bg-card shadow rounded-2xl p-8">
+                <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="flex flex-col">
+                    <div class="flex flex-col sm:flex-row gap-6 mb-6">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Email (Cannot be changed)</mat-label>
+                            <input matInput formControlName="email">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-6 mb-6">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Display Name</mat-label>
+                            <input matInput formControlName="name">
+                            <mat-icon matSuffix class="icon-size-5" [svgIcon]="'heroicons_solid:user'"></mat-icon>
+                        </mat-form-field>
+
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Country of Origin</mat-label>
+                            <input matInput formControlName="country">
+                            <mat-icon matSuffix class="icon-size-5" [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                            <mat-hint>Required for platform compliance</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex items-center justify-end mt-4 border-t pt-6">
+                        <button mat-button type="button">Cancel</button>
+                        <button mat-flat-button [color]="'primary'" type="submit" [disabled]="profileForm.invalid || profileForm.pristine">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
