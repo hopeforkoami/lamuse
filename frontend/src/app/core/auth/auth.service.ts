@@ -78,6 +78,9 @@ export class AuthService
                 // Store the user on the user service
                 this._userService.user = response.user;
 
+                // Persist user data for page refresh
+                localStorage.setItem('userData', JSON.stringify(response.user));
+
                 // Return a new observable with the response
                 return of(response);
             }),
@@ -89,10 +92,21 @@ export class AuthService
      */
     signInUsingToken(): Observable<any>
     {
-        // Sign in using the token
-        return this._httpClient.post(`${environment.apiUrl}/health`, {
-            accessToken: this.accessToken,
-        }).pipe(
+        // Restore user data from localStorage
+        const userData = localStorage.getItem('userData');
+        if ( userData )
+        {
+            try
+            {
+                this._userService.user = JSON.parse(userData);
+            }
+            catch (e)
+            {
+                // Parse failed
+            }
+        }
+
+        return this._httpClient.get(`${environment.apiUrl}/health`).pipe(
             catchError(() =>
 
                 // Return false
@@ -114,8 +128,9 @@ export class AuthService
      */
     signOut(): Observable<any>
     {
-        // Remove the access token from the local storage
+        // Remove the access token and user data from the local storage
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('userData');
 
         // Set the authenticated flag to false
         this._authenticated = false;
@@ -142,6 +157,9 @@ export class AuthService
 
                 // Store the user on the user service
                 this._userService.user = response.user;
+
+                // Persist user data for page refresh
+                localStorage.setItem('userData', JSON.stringify(response.user));
 
                 // Return a new observable with the response
                 return of(response);

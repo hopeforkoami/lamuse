@@ -28,20 +28,20 @@
             <div class="relative w-24 h-24">
                 <img
                     class="w-full h-full rounded-full"
-                    *ngIf="user.avatar"
-                    [src]="user.avatar"
+                    *ngIf="user?.avatar"
+                    [src]="user?.avatar"
                     alt="User avatar">
                 <mat-icon
                     class="icon-size-24"
-                    *ngIf="!user.avatar"
+                    *ngIf="!user?.avatar"
                     [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
             </div>
             <div class="flex flex-col items-center justify-center w-full mt-6">
                 <div class="w-full whitespace-nowrap text-ellipsis overflow-hidden text-center leading-normal font-medium">
-                    {{user.name}}
+                    {{user?.name}}
                 </div>
                 <div class="w-full mt-0.5 whitespace-nowrap text-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
-                    {{user.email}}
+                    {{user?.email}}
                 </div>
             </div>
         </div>
@@ -74,12 +74,6 @@
             <search [appearance]="'bar'"></search>
             <shortcuts></shortcuts>
             <messages></messages>
-            <button
-                class="lg:hidden"
-                mat-icon-button
-                (click)="quickChat.toggle()">
-                <mat-icon [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></mat-icon>
-            </button>
         </div>
     </div>
 
@@ -97,5 +91,3 @@
 
 </div>
 
-<!-- Quick chat -->
-<quick-chat #quickChat="quickChat"></quick-chat>
