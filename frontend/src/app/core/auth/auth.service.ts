@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
+import { environment } from 'environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class AuthService
@@ -39,7 +40,7 @@ export class AuthService
      */
     forgotPassword(email: string): Observable<any>
     {
-        return this._httpClient.post('api/auth/forgot-password', email);
+        return this._httpClient.post(`${environment.apiUrl}/auth/forgot-password`, email);
     }
 
     /**
@@ -49,7 +50,7 @@ export class AuthService
      */
     resetPassword(password: string): Observable<any>
     {
-        return this._httpClient.post('api/auth/reset-password', password);
+        return this._httpClient.post(`${environment.apiUrl}/auth/reset-password`, password);
     }
 
     /**
@@ -65,7 +66,7 @@ export class AuthService
             return throwError('User is already logged in.');
         }
 
-        return this._httpClient.post('api/login', credentials).pipe(
+        return this._httpClient.post(`${environment.apiUrl}/login`, credentials).pipe(
             switchMap((response: any) =>
             {
                 // Store the access token in the local storage
@@ -89,7 +90,7 @@ export class AuthService
     signInUsingToken(): Observable<any>
     {
         // Sign in using the token
-        return this._httpClient.post('api/health', {
+        return this._httpClient.post(`${environment.apiUrl}/health`, {
             accessToken: this.accessToken,
         }).pipe(
             catchError(() =>
@@ -130,7 +131,7 @@ export class AuthService
      */
     signUp(user: { name: string; email: string; password: string }): Observable<any>
     {
-        return this._httpClient.post('api/register', user).pipe(
+        return this._httpClient.post(`${environment.apiUrl}/register`, user).pipe(
             switchMap((response: any) =>
             {
                 // Store the access token in the local storage
@@ -155,7 +156,7 @@ export class AuthService
      */
     unlockSession(credentials: { email: string; password: string }): Observable<any>
     {
-        return this._httpClient.post('api/auth/unlock-session', credentials);
+        return this._httpClient.post(`${environment.apiUrl}/auth/unlock-session`, credentials);
     }
 
     /**

@@ -40,8 +40,8 @@ $errorMiddleware = $app->addErrorMiddleware(
 
 // JWT Middleware
 $app->add(new \Tuupola\Middleware\JwtAuthentication([
-    "path" => ["/api"],
-    "ignore" => ["/api/login", "/api/register", "/api/songs", "/api/checkout", "/api/payments/webhook", "/api/health"],
+    "path" => ["/api/v1"],
+    "ignore" => ["/api/v1/login", "/api/v1/register", "/api/v1/songs", "/api/v1/checkout", "/api/v1/payments/webhook", "/api/v1/health"],
     "secret" => $_ENV['JWT_SECRET'],
     "attribute" => "token",
     "secure" => false,
@@ -54,49 +54,9 @@ $app->add(new \Tuupola\Middleware\JwtAuthentication([
     }
 ]));
 
-// Define API routes
-$app->post('/login', [\App\Controllers\AuthController::class, 'login']);
-$app->post('/register', [\App\Controllers\AuthController::class, 'register']);
-
-// Storefront Routes (Public)
-$app->get('/songs', [\App\Controllers\StoreController::class, 'listSongs']);
-$app->get('/songs/{id}', [\App\Controllers\StoreController::class, 'getSong']);
-
-// Payment Routes (Handle both public webhooks and potentially guest checkouts)
-$app->post('/checkout', [\App\Controllers\OrderController::class, 'createOrder']);
-$app->post('/payments/webhook/{provider}', [\App\Controllers\OrderController::class, 'handleWebhook']);
-
-// Admin Routes
-$app->group('/admin', function (\Slim\Routing\RouteCollectorProxy $group) {
-    $group->get('/artists', [\App\Controllers\AdminController::class, 'listArtists']);
-    $group->post('/artists/{id}/star', [\App\Controllers\AdminController::class, 'updateArtistStar']);
-    $group->get('/pricing-rules', [\App\Controllers\AdminController::class, 'listPricingRules']);
-    $group->post('/pricing-rules', [\App\Controllers\AdminController::class, 'upsertPricingRule']);
-    $group->get('/payment-health', [\App\Controllers\AdminController::class, 'getPaymentHealth']);
-    $group->get('/dashboard-stats', [\App\Controllers\AdminController::class, 'getDashboardStats']);
-    $group->get('/songs', [\App\Controllers\AdminController::class, 'listSongs']);
-    $group->post('/songs/{id}/status', [\App\Controllers\AdminController::class, 'updateSongStatus']);
-})->add(new \App\Middleware\RoleMiddleware(['super_admin']));
-
-// Artist Routes
-$app->group('/artist', function (\Slim\Routing\RouteCollectorProxy $group) {
-    $group->get('/dashboard-stats', [\App\Controllers\ArtistController::class, 'getDashboardStats']);
-    $group->get('/songs', [\App\Controllers\ArtistController::class, 'listSongs']);
-    $group->post('/songs', [\App\Controllers\ArtistController::class, 'uploadSong']);
-    $group->post('/profile', [\App\Controllers\ArtistController::class, 'updateProfile']);
-    $group->get('/export-sales', [\App\Controllers\ArtistController::class, 'exportSalesReport']);
-})->add(new \App\Middleware\RoleMiddleware(['artist']));
-
-// Buyer Routes
-$app->group('/buyer', function (\Slim\Routing\RouteCollectorProxy $group) {
-    $group->get('/library', [\App\Controllers\BuyerController::class, 'getLibrary']);
-    $group->get('/download/{id}', [\App\Controllers\BuyerController::class, 'downloadSong']);
-})->add(new \App\Middleware\RoleMiddleware(['client']));
-
-$app->get('/health', function ($request, $response) {
-    $response->getBody()->write(json_encode(['status' => 'UP']));
-    return $response->withHeader('Content-Type', 'application/json');
-});
+// Register API routes
+$routes = require __DIR__ . '/../src/routes.php';
+$routes($app);
 
 // Run app
 $app->run();

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class AdminService
@@ -12,7 +13,7 @@ export class AdminService
      */
     getDashboardStats(): Observable<any>
     {
-        return this._httpClient.get('api/admin/dashboard-stats');
+        return this._httpClient.get(`${environment.apiUrl}/admin/dashboard-stats`);
     }
 
     /**
@@ -20,7 +21,7 @@ export class AdminService
      */
     getArtists(): Observable<any[]>
     {
-        return this._httpClient.get<any[]>('api/admin/artists');
+        return this._httpClient.get<any[]>(`${environment.apiUrl}/admin/artists`);
     }
 
     /**
@@ -28,7 +29,7 @@ export class AdminService
      */
     updateArtistStar(artistId: number, starRanking: number): Observable<any>
     {
-        return this._httpClient.post(`api/admin/artists/${artistId}/star`, { star_ranking: starRanking });
+        return this._httpClient.post(`${environment.apiUrl}/admin/artists/${artistId}/star`, { star_ranking: starRanking });
     }
 
     /**
@@ -36,7 +37,7 @@ export class AdminService
      */
     getPricingRules(): Observable<any[]>
     {
-        return this._httpClient.get<any[]>('api/admin/pricing-rules');
+        return this._httpClient.get<any[]>(`${environment.apiUrl}/admin/pricing-rules`);
     }
 
     /**
@@ -44,7 +45,7 @@ export class AdminService
      */
     upsertPricingRule(rule: any): Observable<any>
     {
-        return this._httpClient.post('api/admin/pricing-rules', rule);
+        return this._httpClient.post(`${environment.apiUrl}/admin/pricing-rules`, rule);
     }
 
     /**
@@ -52,7 +53,7 @@ export class AdminService
      */
     getPaymentHealth(): Observable<any[]>
     {
-        return this._httpClient.get<any[]>('api/admin/payment-health');
+        return this._httpClient.get<any[]>(`${environment.apiUrl}/admin/payment-health`);
     }
 
     /**
@@ -60,7 +61,7 @@ export class AdminService
      */
     getSongs(): Observable<any[]>
     {
-        return this._httpClient.get<any[]>('api/admin/songs');
+        return this._httpClient.get<any[]>(`${environment.apiUrl}/admin/songs`);
     }
 
     /**
@@ -68,7 +69,7 @@ export class AdminService
      */
     updateSongStatus(songId: number, status: string): Observable<any>
     {
-        return this._httpClient.post(`api/admin/songs/${songId}/status`, { status });
+        return this._httpClient.post(`${environment.apiUrl}/admin/songs/${songId}/status`, { status });
     }
 
     /**
@@ -76,7 +77,7 @@ export class AdminService
      */
     getOrders(): Observable<any[]>
     {
-        return this._httpClient.get<any[]>('api/admin/orders');
+        return this._httpClient.get<any[]>(`${environment.apiUrl}/admin/orders`);
     }
 
     /**
@@ -84,6 +85,6 @@ export class AdminService
      */
     getReports(): Observable<any[]>
     {
-        return this._httpClient.get<any[]>('api/admin/reports');
+        return this._httpClient.get<any[]>(`${environment.apiUrl}/admin/reports`);
     }
 }
