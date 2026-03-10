@@ -1,0 +1,32 @@
+# IDE
+.idea/
+*.iml
+
+# Dependencies
+node_modules/
+backend/vendor/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build output
+frontend/dist/
+frontend/.angular/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Docker volumes
+mysql_data/
+minio_data/
+
+# Fuse template archive
+fuse-angular_v19.0.0/
+fuse-angular_v19.0.0.zip
